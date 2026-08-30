@@ -1,0 +1,10 @@
+# 含明文 API 凭据，不入库
+tg_forward.py
+
+# Telethon 登录会话文件（等同账号凭据）
+tg_session*
+*.session
+*.session-journal
+
+__pycache__/
+*.pyc
