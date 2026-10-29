@@ -1,0 +1,8 @@
+# DOMAIN 填你的域名（如 profit.example.com）即自动 HTTPS；留空则监听 80 端口（仅 HTTP，适合先用 IP 试用）
+{$DOMAIN::80} {
+	encode gzip
+	request_body {
+		max_size 150MB
+	}
+	reverse_proxy app:3000
+}

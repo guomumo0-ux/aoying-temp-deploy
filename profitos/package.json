@@ -1,0 +1,19 @@
+{
+  "name": "profitos",
+  "version": "1.0.0",
+  "description": "ProfitOS - 电商利润分析工作台（团队云端版）",
+  "private": true,
+  "type": "commonjs",
+  "main": "server.js",
+  "engines": { "node": ">=22.13" },
+  "scripts": {
+    "start": "node server.js",
+    "test": "node --test --no-warnings test/*.test.js",
+    "seed": "node scripts/seed-demo.js"
+  },
+  "dependencies": {
+    "echarts": "^6.1.0",
+    "express": "^4.22.3",
+    "xlsx": "^0.18.5"
+  }
+}

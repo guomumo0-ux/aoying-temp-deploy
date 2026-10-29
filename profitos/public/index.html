@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ProfitOS · 电商利润分析</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%231f4d3c'/%3E%3Ctext x='16' y='22' font-size='18' text-anchor='middle' fill='white' font-family='sans-serif' font-weight='700'%3EP%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div id="login" class="login hidden">
+  <form id="loginForm" class="login-card">
+    <div class="brand"><span class="logo">P</span><div><b>ProfitOS</b><small>电商利润分析</small></div></div>
+    <h2 id="loginTitle">登录</h2>
+    <p class="muted" id="loginHint">团队共用的利润工作台，请使用管理员给你的账号登录。</p>
+    <label id="nameRow" class="hidden">姓名<input name="name" autocomplete="name"></label>
+    <label>邮箱<input name="email" type="email" required autocomplete="username"></label>
+    <label>密码<input name="password" type="password" required minlength="8" autocomplete="current-password"></label>
+    <div id="loginErr" class="err"></div>
+    <button class="btn primary" type="submit" id="loginBtn">登录</button>
+  </form>
+</div>
+<div id="app" class="app hidden">
+  <aside class="side">
+    <div class="brand"><span class="logo">P</span><div><b>ProfitOS</b><small>电商利润分析</small></div></div>
+    <nav id="nav"></nav>
+    <div class="side-foot">
+      <div id="whoami"></div>
+      <small>团队云端版 · 数据保存在服务器</small>
+      <button class="link" id="logoutBtn">退出登录</button>
+    </div>
+  </aside>
+  <main id="main" class="main"></main>
+</div>
+<div id="toast" class="toast hidden"></div>
+<script src="/vendor/echarts.js"></script>
+<script src="/vendor/xlsx.js"></script>
+<script src="/shared/mapping.js"></script>
+<script src="/app.js"></script>
+<script src="/pages2.js"></script>
+</body>
+</html>

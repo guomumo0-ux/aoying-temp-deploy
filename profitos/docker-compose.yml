@@ -1,0 +1,32 @@
+# 团队云端部署：应用 + Caddy（自动申请 HTTPS 证书）
+# 用法：cp .env.example .env && 编辑 .env && docker compose up -d --build
+services:
+  app:
+    build: .
+    restart: unless-stopped
+    environment:
+      ADMIN_EMAIL: ${ADMIN_EMAIL:-}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:-}
+      ADMIN_NAME: ${ADMIN_NAME:-管理员}
+      COOKIE_SECURE: ${COOKIE_SECURE:-0}
+    volumes:
+      - profitos-data:/data
+    expose:
+      - "3000"
+  caddy:
+    image: caddy:2
+    restart: unless-stopped
+    depends_on: [app]
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      DOMAIN: ${DOMAIN:-:80}
+    volumes:
+      - ./deploy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+      - caddy-config:/config
+volumes:
+  profitos-data:
+  caddy-data:
+  caddy-config:
