@@ -1,0 +1,24 @@
+[Unit]
+Description=ProfitOS profit workbench (Node.js)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=profitos
+Group=profitos
+WorkingDirectory=/opt/profitos
+EnvironmentFile=/etc/profitos/profitos.env
+ExecStart=/usr/bin/node --no-warnings /opt/profitos/server.js
+Restart=on-failure
+RestartSec=3
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/profitos /var/backups/profitos
+CapabilityBoundingSet=
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+
+[Install]
+WantedBy=multi-user.target

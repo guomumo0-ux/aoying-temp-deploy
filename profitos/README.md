@@ -45,10 +45,23 @@ docker compose up -d --build
   ```
   再用 `docker cp` 或挂载目录把备份文件拷走。
 
-### 不用 Docker
+### 不用 Docker（systemd，已有 Node 24 + Caddy 的服务器适用）
 
-需要 Node.js ≥ 22.13：`npm ci --omit=dev && PORT=3000 node server.js`，前面用 Nginx/Caddy 反向代理并上 HTTPS（`COOKIE_SECURE=1`）。
-也可部署到 Render / Railway / Fly.io 等：用本目录的 `Dockerfile`，并**挂载持久化磁盘到 `/data`**，设置 `ADMIN_EMAIL` / `ADMIN_PASSWORD`。
+```bash
+git clone -b claude/profitos-workbench https://github.com/guomumo0-ux/aoying-temp-deploy
+cd aoying-temp-deploy/profitos
+sudo ./deploy/install.sh
+sudo nano /etc/profitos/profitos.env     # 填 ADMIN_EMAIL / ADMIN_PASSWORD，保存后：
+sudo systemctl restart profitos
+```
+
+脚本会：创建 `profitos` 系统用户 → 代码装到 `/opt/profitos` → 数据库在 `/var/lib/profitos/` → 注册 systemd 服务（开机自启、崩溃重启）→ 每天自动备份到 `/var/backups/profitos/`（保留 14 天）。
+服务只监听 `127.0.0.1:3000`，对外 HTTPS 由 Caddy 提供：把 `deploy/Caddyfile.profitos.example` 里的站点块（改成你的域名，或 `<公网IP用横线连接>.sslip.io`）追加到 `/etc/caddy/Caddyfile`，再 `sudo systemctl reload caddy`。和已有站点并存，不影响。
+
+更新：`git pull && sudo ./deploy/install.sh`（会先备份数据库，配置和数据不动）。
+查看日志：`journalctl -u profitos -f`。
+
+其他平台（Render / Railway / Fly.io）：用本目录的 `Dockerfile`，并**挂载持久化磁盘到 `/data`**，设置 `ADMIN_EMAIL` / `ADMIN_PASSWORD`。
 
 ## 本地试用
 

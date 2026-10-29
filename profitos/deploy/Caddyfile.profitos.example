@@ -1,0 +1,13 @@
+# 追加到 /etc/caddy/Caddyfile（和已有站点并存），把域名换成你的；
+# 没有域名可用 <公网IP用横线连接>.sslip.io，例如 1-2-3-4.sslip.io
+profit.example.com {
+	encode gzip
+	request_body {
+		max_size 150MB
+	}
+	header {
+		Strict-Transport-Security "max-age=31536000; includeSubDomains"
+		Referrer-Policy "no-referrer"
+	}
+	reverse_proxy 127.0.0.1:3000
+}
